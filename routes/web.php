@@ -21,3 +21,4 @@ Route::get('/',function (){
 Route::get('/show',[TrackController::class, 'index']); //view all records
 Route::post('/add',[TrackController::class, 'store']); //add new records
 Route::any('/del/{id}', [TrackController::class, 'delete']); //delete record
+Route::get('/backup', [TrackController::class, 'backups']);

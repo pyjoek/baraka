@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Track;
+use App\Models\History;
 use Illuminate\Http\Request;
 
 class TrackController extends Controller
@@ -87,10 +88,31 @@ class TrackController extends Controller
      * @param  \App\Models\Track  $track
      * @return \Illuminate\Http\Response
      */
-    public function delete($id)
+    public function delete(Request $request, $id)
     {
+        date_default_timezone_set('Africa/Dar_es_salaam');
+        $hour = intval(date('H'));
+        $min = intval(date('i'));
+        $time_out = $hour.":".$min;
+
+        $data = Track::find($id);
+        $datas = new History();
+        $datas->car_number = $data->car_number;
+        $datas->driver_name = $data->driver_name;
+        $datas->phone_number = $data->phone_number;
+        $datas->reason = $data->reason;
+        $datas->time_in = $data->time_in;
+        $datas->time_out = $time_out;
+        $datas->save();
+        
         $data = Track::find($id);
         $data->delete();
         return redirect('/show')->with('success', 'Item deleted successfully');
     }
+
+    public function backups()
+    {
+        $history = History::all();
+        return view('backup',['history' => $history]);
     }
+}

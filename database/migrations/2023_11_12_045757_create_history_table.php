@@ -21,6 +21,7 @@ class CreateHistoryTable extends Migration
             $table->text('reason');
             $table->string('time_in');
             $table->string('time_out');
+            $table->timestamps();
         });
     }
 

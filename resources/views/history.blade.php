@@ -35,13 +35,15 @@
                     <td><input type="text" name="driverN" value="{{$data['driver_name']}}" readonly></td>
                     <td><input type="text" name="time_in" value="{{$data['time_in']}}" readonly></td>
                     <td><input type="text" name="time_out" value="<?php
-                            $hour = intval(date('H')) + 3;
+                            date_default_timezone_set('Africa/Dar_es_salaam');
+                            $hour = intval(date('H'));
                             $min = intval(date('i'));
                             echo $hour.":".$min;
                         ?>" readonly>
                     </td>
                     <td><input type="text" value="<?php
-                        $hour = intval(date('H')) + 3;
+                        date_default_timezone_set('Africa/Dar_es_salaam');
+                        $hour = intval(date('H'));
                         $min = intval(date('i'));
                         $tfd = $data['time_in'];
                         $hfd = explode(":",$tfd);
@@ -51,7 +53,8 @@
                         ?>" readonly></td>
                     <td>
                     <?php
-                        $hour = intval(date('H')) + 3;
+                            date_default_timezone_set('Africa/Dar_es_salaam');
+                        $hour = intval(date('H'));
                         $min = intval(date('i'));
                         $tfd = $data['time_in'];
                         $hfd = explode(":",$tfd);
@@ -59,12 +62,6 @@
                         $mins = $min - $hfd[1];
                         // $amin = $mins * 500;
                         // $hr = $hours * 1000;
-                        if ($mins <= 30) {
-                            $amin = 500;
-                            if 
-                        }
-                        $price = $amin + $hr;
-                        echo $price." Tsh";
                         ?>
                     </td>
                 </tr>
