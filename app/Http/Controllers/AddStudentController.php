@@ -15,9 +15,9 @@ class AddStudentController extends Controller
     public function index()
     {
         $students = AddStudent::all();
-        // dd($students);
         return view('atendance', ['students' => $students]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -26,7 +26,7 @@ class AddStudentController extends Controller
      */
     public function create()
     {
-        //
+        return view('new');
     }
 
     /**

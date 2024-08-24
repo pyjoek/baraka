@@ -17,5 +17,6 @@ use App\Http\Controllers\AttendanceController;
 */
 
 Route::get('/', [AddStudentController::class, 'index']);
+Route::get('/add', [AddStudentController::class, 'create']);
 Route::post('/addStudent', [AddStudentController::class, 'store']);
 Route::post('/addattendance', [AttendanceController::class, 'store']);

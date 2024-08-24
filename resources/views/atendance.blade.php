@@ -6,12 +6,12 @@
     <title>{{config('app.name')}}</title>
     <script>
         function news(){
-            document.querySelector('#new').style.display = ""
-            document.querySelector('#history').style.display = "none"
+            document.querySelector('#new').style.display = "";
+            document.querySelector('#history').style.display = "none";
         }
         function hist(){
-            document.querySelector('#new').style.display = "none"
-            document.querySelector('#history').style.display = ""
+            document.querySelector('#new').style.display = "none";
+            document.querySelector('#history').style.display = "";
         }
     </script>
     <style>
@@ -29,7 +29,6 @@
         }
         #new input[type="submit"],#wen{
             border-bottom: none;
-            
         }
         #new{
             margin:0 auto;
@@ -49,32 +48,34 @@
     <center>
     <main>
         <div id="new">
-            <table>
-                <th>
-                    <thead>Full Name</thead>
-                    <thead>Roll Number</thead>
-                    <thead>Status</thead>
-                </th>
-                <form action="/addattendance" method="post">
-                    @csrf
-                    @foreach ($students ?? '' as $student)
-                    <tr>
-                        <input type="hidden" name="date" value="<?php date_default_timezone_set('Africa/Nairobi'); $currentDate = date('Y-m-d'); echo  $currentDate; ?>">
-                        <td><input type="text" name="name" value="{{$student->name}}" readonly></td>
-                        <td><input type="text" name="rollno" value="{{$student->rollNo}}" readonly></td>
-                        <td>
-                            <select name="status" id="">
-                                <option value="absent">Absent</option>
-                                <option value="present">Present</option>
-                            </select>
-                        </td>
-                    </tr>
-                    @endforeach
-                    <tr>
-                        <td colspan="3"><button type="submit">Submit</button></td>
-                    </tr>
-                </form>
-            </table>
+            <form action="/addattendance" method="post">
+                @csrf
+                <input type="hidden" name="date" value="<?php echo date('Y-m-d'); ?>">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Roll Number</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($students ?? '' as $student)
+                        <tr>
+                            <td><input type="text" name="students[{{$loop->index}}][name]" value="{{$student->name}}" readonly></td>
+                            <td><input type="text" name="students[{{$loop->index}}][rollNo]" value="{{$student->rollNo}}" readonly></td>
+                            <td>
+                                <select name="students[{{$loop->index}}][status]">
+                                    <option value="absent">Absent</option>
+                                    <option value="present">Present</option>
+                                </select>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <input type="submit" value="Submit">
+            </form>
         </div>
     </main>
     </center>
