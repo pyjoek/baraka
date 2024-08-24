@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\History;
+use App\Models\AddStudent;
 use Illuminate\Http\Request;
 
-class HistoryController extends Controller
+class AddStudentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,9 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        $datas = History::all();
-        return view('history',['datas' => $datas]);
+        $students = AddStudent::all();
+        // dd($students);
+        return view('atendance', ['students' => $students]);
     }
 
     /**
@@ -36,24 +37,23 @@ class HistoryController extends Controller
      */
     public function store(Request $request)
     {
-        $data = new History();
-        $data->car_number = $request->carN;
-        $data->driver_name = $request->driverN;
-        $data->phone_number = $request->phoneN;
-        $data->reason = $request->reason;
-        $data->time_in = $request->time_in;
-        $data->time_out = $request->time_out;
-        $data->save();
+        $student = new AddStudent();
+        $student->name = $request->name;
+        $student->rollNo = $request->rollno;
+        $student->gender = $request->gender;
+        $student->dob = $request->dob;
+        $student->save();
+
         return redirect('/');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\AddStudent  $addStudent
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(AddStudent $addStudent)
     {
         //
     }
@@ -61,10 +61,10 @@ class HistoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\AddStudent  $addStudent
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(AddStudent $addStudent)
     {
         //
     }
@@ -73,10 +73,10 @@ class HistoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\AddStudent  $addStudent
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, AddStudent $addStudent)
     {
         //
     }
@@ -84,10 +84,10 @@ class HistoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\AddStudent  $addStudent
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(AddStudent $addStudent)
     {
         //
     }

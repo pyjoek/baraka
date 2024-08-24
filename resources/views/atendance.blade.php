@@ -52,14 +52,28 @@
             <table>
                 <th>
                     <thead>Full Name</thead>
-                    <thead>ROll Number</thead>
+                    <thead>Roll Number</thead>
+                    <thead>Status</thead>
                 </th>
-                @foreach ($students ?? '' as $student)
+                <form action="/addattendance" method="post">
+                    @csrf
+                    @foreach ($students ?? '' as $student)
                     <tr>
-                        <td>{{$student->name}}</td>
-                        <td>{{$student->rollNo}}</td>
+                        <input type="hidden" name="date" value="<?php date_default_timezone_set('Africa/Nairobi'); $currentDate = date('Y-m-d'); echo  $currentDate; ?>">
+                        <td><input type="text" name="name" value="{{$student->name}}" readonly></td>
+                        <td><input type="text" name="rollno" value="{{$student->rollNo}}" readonly></td>
+                        <td>
+                            <select name="status" id="">
+                                <option value="absent">Absent</option>
+                                <option value="present">Present</option>
+                            </select>
+                        </td>
                     </tr>
-                @endforeach
+                    @endforeach
+                    <tr>
+                        <td colspan="3"><button type="submit">Submit</button></td>
+                    </tr>
+                </form>
             </table>
         </div>
     </main>
