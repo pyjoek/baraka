@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\DB;
 
 class AttendanceController extends Controller
 {
+    public function index() {
+        return view('atendance');
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -22,6 +25,9 @@ class AttendanceController extends Controller
         $tableName = $request->input('date');
 
         DB::beginTransaction();
+        DB::rollBack();
+
+        // Schema::dropIfExists($tableName);
 
         try {
             // Create a new table for the given date

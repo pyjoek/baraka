@@ -53,9 +53,10 @@ class AddStudentController extends Controller
      * @param  \App\Models\AddStudent  $addStudent
      * @return \Illuminate\Http\Response
      */
-    public function show(AddStudent $addStudent)
+    public function show()
     {
-        //
+        $students = AddStudent::all();
+        return view('index', ['students' => $students]);
     }
 
     /**

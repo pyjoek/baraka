@@ -51,7 +51,7 @@
             <form action="/addattendance" method="post">
                 @csrf
                 <input type="hidden" name="date" value="<?php echo date('Y-m-d'); ?>">
-                <table>
+                <table class="table table-dark table-striped">
                     <thead>
                         <tr>
                             <th>Full Name</th>
@@ -60,7 +60,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($students ?? '' as $student)
+                        @foreach ($students as $student)
                         <tr>
                             <td><input type="text" name="students[{{$loop->index}}][name]" value="{{$student->name}}" readonly></td>
                             <td><input type="text" name="students[{{$loop->index}}][rollNo]" value="{{$student->rollNo}}" readonly></td>
@@ -74,7 +74,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                <input type="submit" value="Submit">
+                <input type="submit" value="Submit" class="btn btn-primary">
             </form>
         </div>
     </main>

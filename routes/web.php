@@ -16,7 +16,15 @@ use App\Http\Controllers\AttendanceController;
 |
 */
 
-Route::get('/', [AddStudentController::class, 'index']);
-Route::get('/add', [AddStudentController::class, 'create']);
-Route::post('/addStudent', [AddStudentController::class, 'store']);
-Route::post('/addattendance', [AttendanceController::class, 'store']);
+Route::get('/', [AddStudentController::class, 'show']);
+Route::get('/add', [AddStudentController::class, 'create'])->middleware(['auth']);
+Route::get('/adat', [AddStudentController::class, 'index'])->middleware(['auth']);
+Route::post('/addStudent', [AddStudentController::class, 'store'])->middleware(['auth']);
+Route::post('/addattendance', [AttendanceController::class, 'store'])->middleware(['auth']);
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
