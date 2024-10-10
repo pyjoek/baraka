@@ -50,18 +50,22 @@
     <center>
     <main>
         <div id="new">
-            <h1><a href="/adat">Add New attendance</a>&nbsp&nbsp&nbsp <a href="/add">Add New Student</a></h1>
+            <h1><a href="/adat">Add New attendance</a>&nbsp&nbsp&nbsp <a href="/add">Add New Student</a>&nbsp&nbsp&nbsp <a href="/dates">Dates</a></h1>
             <table class="table">
                <tr>
                     <th>Full Name</th>
                     <th>Roll Number</th>
                </tr>
-                @foreach ($students ?? '' as $student)
-                    <tr>
-                    <td><input type="text" name="students[{{$loop->index}}][name]" value="{{$student->name}}" readonly></td>
-                    <td><input type="text" name="students[{{$loop->index}}][rollNo]" value="{{$student->rollNo}}" readonly></td>
-                    </tr>
-                @endforeach
+                @if ($students -> isNotEmpty())
+                    @foreach ($students as $student)
+                        <tr>
+                        <td><input type="text" name="students[{{$loop->index}}][name]" value="{{$student->name}}" readonly></td>
+                        <td><input type="text" name="students[{{$loop->index}}][rollNo]" value="{{$student->rollNo}}" readonly></td>
+                        </tr>
+                    @endforeach
+                @else
+                    <h1>No Students Found!!</h1>
+                @endif
             </table>
         </div>
     </main>

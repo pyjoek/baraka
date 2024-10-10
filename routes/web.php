@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TrackController;
 use App\Http\Controllers\AddStudentController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\AlltableController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,10 @@ use App\Http\Controllers\AttendanceController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/alll', [AlltableController::class, 'index']);
 
 Route::get('/', [AddStudentController::class, 'show']);
+Route::get('/dates', [AlltableController::class, 'index']);
 Route::get('/add', [AddStudentController::class, 'create'])->middleware(['auth']);
 Route::get('/adat', [AddStudentController::class, 'index'])->middleware(['auth']);
 Route::post('/addStudent', [AddStudentController::class, 'store'])->middleware(['auth']);
