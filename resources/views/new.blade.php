@@ -38,6 +38,11 @@
 <body>
    <center>
    <div class="main">
+        <h1>    
+            <a href="/adat">Add New Attendance</a>&nbsp&nbsp&nbsp 
+            <a href="/add">Add New Student</a>&nbsp&nbsp&nbsp 
+            <a href="/dates">Dates</a>
+        </h1>
         <div class="add-student">
             <form action="/addStudent" method="post" id="new">
                 @csrf

@@ -47,6 +47,11 @@
 <body>
     <center>
     <main>
+        <h1>    
+            <a href="/adat">Add New Attendance</a>&nbsp&nbsp&nbsp 
+            <a href="/add">Add New Student</a>&nbsp&nbsp&nbsp 
+            <a href="/dates">Dates</a>
+        </h1>
         <div id="new">
             <form action="/addattendance" method="post">
                 @csrf

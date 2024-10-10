@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\TrackController;
 use App\Http\Controllers\AddStudentController;
 use App\Http\Controllers\AttendanceController;
@@ -19,11 +20,12 @@ use App\Http\Controllers\AlltableController;
 Route::get('/alll', [AlltableController::class, 'index']);
 
 Route::get('/', [AddStudentController::class, 'show']);
-Route::get('/dates', [AlltableController::class, 'index']);
+Route::get('/dates', [AlltableController::class, 'index'])->middleware(['auth']);
 Route::get('/add', [AddStudentController::class, 'create'])->middleware(['auth']);
 Route::get('/adat', [AddStudentController::class, 'index'])->middleware(['auth']);
 Route::post('/addStudent', [AddStudentController::class, 'store'])->middleware(['auth']);
 Route::post('/addattendance', [AttendanceController::class, 'store'])->middleware(['auth']);
+Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])->middleware(['auth']);
 
 
 Route::get('/dashboard', function () {

@@ -16,6 +16,19 @@
         }
     </script>
     <style>
+        .date-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .date-item {
+            margin: 10px;
+        }
+        .content {
+            display: none;
+        }
+    </style>
+    <style>
         *{
             padding: 0;
         }

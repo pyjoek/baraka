@@ -26,6 +26,7 @@
                 <a href="/adat">Add New Attendance</a>&nbsp&nbsp&nbsp 
                 <a href="/add">Add New Student</a>&nbsp&nbsp&nbsp 
                 <a href="/dates">Dates</a>
+                <a href="/logout">Logout</a>
             </h1>
 
             <div class="date-row">
