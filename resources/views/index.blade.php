@@ -36,7 +36,6 @@
             <a href="/adat" class="btn btn-link">Add New Attendance</a>
             <a href="/add" class="btn btn-link">Add New Student</a>
             <a href="/dates" class="btn btn-link">Dates</a>
-            <a href="/logout" class="btn btn-danger">Logout</a>
         </h1>
         
         <div id="new">

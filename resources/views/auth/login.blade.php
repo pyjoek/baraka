@@ -2,8 +2,11 @@
 
 <div style="height: 100vh; display: flex; justify-content: center; align-items: center;">
     <div class="row justify-content-center">
-        <div class="col-md-12"> <!-- Full width -->
-            <x-auth-card class="shadow p-3 mb-5 bg-white rounded">
+        <div class="col-md-12"> <!-- Increased column width -->
+            <div class="panel panel-default shadow p-3 mb-5 bg-white rounded">
+                <div class="panel-heading text-center">
+                    <h2 class="panel-title">{{ __('Login') }}</h2>
+                </div>
 
                 <!-- Session Status -->
                 <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -11,47 +14,44 @@
                 <!-- Validation Errors -->
                 <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
+                <div class="panel-body">
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
 
-                    <!-- Email Address -->
-                    <div>
-                        <x-label for="email" :value="__('Email')" class="form-label"/>
+                        <!-- Email Address -->
+                        <div class="form-group">
+                            <label for="email" class="form-label">{{ __('Email') }}</label>
+                            <input id="email" class="form-control" type="email" name="email" :value="old('email')" required autofocus />
+                        </div>
 
-                        <x-input id="email" class="block mt-1 w-full form-control" type="email" name="email" :value="old('email')" required autofocus />
-                    </div>
+                        <!-- Password -->
+                        <div class="form-group mt-4">
+                            <label for="password" class="form-label">{{ __('Password') }}</label>
+                            <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" />
+                        </div>
 
-                    <!-- Password -->
-                    <div class="mt-4">
-                        <x-label for="password" :value="__('Password')" class="form-label"/>
+                        <!-- Remember Me -->
+                        <div class="form-group mt-4">
+                            <label for="remember_me" class="checkbox-inline">
+                                <input id="remember_me" type="checkbox" name="remember">
+                                {{ __('Remember me') }}
+                            </label>
+                        </div>
 
-                        <x-input id="password" class="block mt-1 w-full form-control"
-                                        type="password"
-                                        name="password"
-                                        required autocomplete="current-password" />
-                    </div>
+                        <div class="flex items-center justify-end mt-4">
+                            @if (Route::has('password.request'))
+                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    {{ __('Forgot your password?') }}
+                                </a>
+                            @endif
 
-                    <!-- Remember Me -->
-                    <div class="block mt-4">
-                        <label for="remember_me" class="inline-flex items-center">
-                            <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                            <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                        </label>
-                    </div>
-
-                    <div class="flex items-center justify-end mt-4">
-                        @if (Route::has('password.request'))
-                            <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                                {{ __('Forgot your password?') }}
-                            </a>
-                        @endif
-
-                        <x-button class="ml-3 btn btn-primary">
-                            {{ __('Log in') }}
-                        </x-button>
-                    </div>
-                </form>
-            </x-auth-card>
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('Log in') }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
