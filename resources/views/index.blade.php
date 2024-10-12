@@ -7,81 +7,62 @@
     <title>{{config('app.name')}}</title>
     <script>
         function news(){
-            document.querySelector('#new').style.display = ""
-            document.querySelector('#history').style.display = "none"
+            document.querySelector('#new').style.display = "";
+            document.querySelector('#history').style.display = "none";
         }
         function hist(){
-            document.querySelector('#new').style.display = "none"
-            document.querySelector('#history').style.display = ""
+            document.querySelector('#new').style.display = "none";
+            document.querySelector('#history').style.display = "";
         }
     </script>
     <style>
-        .date-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .date-item {
-            margin: 10px;
-        }
         .content {
             display: none;
         }
-    </style>
-    <style>
-        *{
-            padding: 0;
-        }
-        #new input{
-            width: 50%;
-            padding: 3px;
-            margin-bottom: 5px;
-            outline: none;
-            border: none;
-            background: transparent;
-            border-bottom: 1px solid red;
-        }
-        #new input[type="submit"],#wen{
-            border-bottom: none;
-            
-        }
-        #new{
-            margin:0 auto;
+        #new {
+            margin: 0 auto;
             width: 80%;
-            height: max-content;
-            top: 50%;
-            left: 50%;
-            translate: (-50,-50);
+            max-width: 800px; /* Max width for larger screens */
+            margin-top: 20px; /* Spacing from top */
         }
-        #top{
-            text-decoration: none;
-            color: black;
+        h1 {
+            margin-bottom: 20px; /* Space between heading and table */
         }
     </style>
 </head>
 <body>
-    <center>
-    <main>
+    <div class="container text-center">
+        <h1>
+            <a href="/adat" class="btn btn-link">Add New Attendance</a>
+            <a href="/add" class="btn btn-link">Add New Student</a>
+            <a href="/dates" class="btn btn-link">Dates</a>
+            <a href="/logout" class="btn btn-danger">Logout</a>
+        </h1>
+        
         <div id="new">
-            <h1><a href="/adat">Add New attendance</a>&nbsp&nbsp&nbsp <a href="/add">Add New Student</a>&nbsp&nbsp&nbsp <a href="/dates">Dates</a></h1>
-            <table class="table">
-               <tr>
-                    <th>Full Name</th>
-                    <th>Roll Number</th>
-               </tr>
-                @if ($students -> isNotEmpty())
-                    @foreach ($students as $student)
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Roll Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if ($students->isNotEmpty())
+                        @foreach ($students as $student)
+                            <tr>
+                                <td><input type="text" name="students[{{$loop->index}}][name]" value="{{$student->name}}" class="form-control" readonly></td>
+                                <td><input type="text" name="students[{{$loop->index}}][rollNo]" value="{{$student->rollNo}}" class="form-control" readonly></td>
+                            </tr>
+                        @endforeach
+                    @else
                         <tr>
-                        <td><input type="text" name="students[{{$loop->index}}][name]" value="{{$student->name}}" readonly></td>
-                        <td><input type="text" name="students[{{$loop->index}}][rollNo]" value="{{$student->rollNo}}" readonly></td>
+                            <td colspan="2">No Students Found!!</td>
                         </tr>
-                    @endforeach
-                @else
-                    <h1>No Students Found!!</h1>
-                @endif
+                    @endif
+                </tbody>
             </table>
         </div>
-    </main>
-    </center>
+    </div>
 </body>
 </html>

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{config('app.name')}}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
     <script>
         function news(){
             document.querySelector('#new').style.display = "";
@@ -14,51 +16,55 @@
             document.querySelector('#history').style.display = "";
         }
     </script>
+
     <style>
-        *{
-            padding: 0;
+        #new input[type="submit"] {
+            margin-top: 10px;
         }
-        #new input{
-            width: 50%;
-            padding: 3px;
-            margin-bottom: 5px;
+        #new input {
+            width: 100%;
+            padding: 6px;
+            margin-bottom: 10px;
             outline: none;
-            border: none;
-            background: transparent;
-            border-bottom: 1px solid red;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
-        #new input[type="submit"],#wen{
-            border-bottom: none;
+        #new select {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
-        #new{
-            margin:0 auto;
-            width: 80%;
-            height: max-content;
-            top: 50%;
-            left: 50%;
-            translate: (-50,-50);
+        .table-container {
+            margin-top: 30px;
         }
-        #top{
-            text-decoration: none;
-            color: black;
+        .btn-primary {
+            width: 100%;
+        }
+        h1 a {
+            margin-right: 20px;
         }
     </style>
 </head>
 <body>
     <center>
-    <main>
+    <main class="container">
         <h1>    
-            <a href="/adat">Add New Attendance</a>&nbsp&nbsp&nbsp 
-            <a href="/add">Add New Student</a>&nbsp&nbsp&nbsp 
-            <a href="/dates">Dates</a>
+            <a href="/adat" class="btn btn-link">Add New Attendance</a>
+            <a href="/add" class="btn btn-link">Add New Student</a>
+            <a href="/dates" class="btn btn-link">Dates</a>
+            <a href="/logout" class="btn btn-link">Logout</a>
         </h1>
-        <div id="new">
-            <form action="/addattendance" method="post">
+
+        <div id="new" class="table-container">
+            <form action="/addattendance" method="post" class="form-horizontal">
                 @csrf
-                <input type="hidden" name="date" value="<?php echo date('Y-m-d'); ?>">
-                <table class="table table-dark table-striped">
+                <input type="hidden" name="date" value="{{ date('Y-m-d') }}">
+
+                <!-- Table for attendance -->
+                <table class="table table-bordered table-striped table-hover">
                     <thead>
-                        <tr>
+                        <tr class="active">
                             <th>Full Name</th>
                             <th>Roll Number</th>
                             <th>Status</th>
@@ -67,10 +73,14 @@
                     <tbody>
                         @foreach ($students as $student)
                         <tr>
-                            <td><input type="text" name="students[{{$loop->index}}][name]" value="{{$student->name}}" readonly></td>
-                            <td><input type="text" name="students[{{$loop->index}}][rollNo]" value="{{$student->rollNo}}" readonly></td>
                             <td>
-                                <select name="students[{{$loop->index}}][status]">
+                                <input type="text" name="students[{{$loop->index}}][name]" value="{{$student->name}}" readonly class="form-control">
+                            </td>
+                            <td>
+                                <input type="text" name="students[{{$loop->index}}][rollNo]" value="{{$student->rollNo}}" readonly class="form-control">
+                            </td>
+                            <td>
+                                <select name="students[{{$loop->index}}][status]" class="form-control">
                                     <option value="absent">Absent</option>
                                     <option value="present">Present</option>
                                 </select>
@@ -79,6 +89,8 @@
                         @endforeach
                     </tbody>
                 </table>
+
+                <!-- Submit button -->
                 <input type="submit" value="Submit" class="btn btn-primary">
             </form>
         </div>

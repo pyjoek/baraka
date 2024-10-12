@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-
 use App\Models\Alltable;
 use Illuminate\Http\Request;
 
@@ -18,7 +17,6 @@ class AlltableController extends Controller
     public function index()
     {
         $tables = DB::select('SHOW TABLES');
-
         $dateTables = [];
 
         // Loop through the tables and check if the name starts with '202'
@@ -31,13 +29,24 @@ class AlltableController extends Controller
             
             // Check if the table name starts with '202'
             if (str_starts_with($tableName, '202')) {
-                $dateTables[] = $tableName; // Store valid date tables
+                // Get the table details such as columns and data types
+                $columns = DB::select("SHOW COLUMNS FROM `$tableName`");
+
+                // Store table name and column details
+                $dateTables[] = [
+                    'table_name' => $tableName,
+                    'columns' => $columns,
+                    // Optionally retrieve sample data from the table (e.g., first 5 rows)
+                    'sample_data' => DB::table($tableName)->limit(5)->get()
+                ];
+
                 \Log::info('Valid date table found: ' . $tableName);
             } else {
                 \Log::info('Table does not start with "202": ' . $tableName);
             }
         }
-        // Pass the filtered tables to the view
+
+        // Pass the filtered tables with details to the view
         return view('dates', ['dateTables' => $dateTables]);
     }
 
