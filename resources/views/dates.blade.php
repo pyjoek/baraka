@@ -61,19 +61,23 @@
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                @foreach($table['columns'] as $column)
-                                    <th>{{ $column->Field }}</th>
+                                @foreach($table['columns'] as $columnIndex => $column)
+                                    @if($columnIndex < count($table['columns']) - 2) <!-- Skip the last two columns -->
+                                        <th>{{ $column->Field }}</th>
+                                    @endif
                                 @endforeach
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($table['sample_data'] as $row)
                                 <tr>
-                                    @foreach($table['columns'] as $column)
-                                        <td>
-                                            {{-- Safely output each field value --}}
-                                            {{ is_array($row->{$column->Field}) || is_object($row->{$column->Field}) ? json_encode($row->{$column->Field}) : strval($row->{$column->Field}) }}
-                                        </td>
+                                    @foreach($table['columns'] as $columnIndex => $column)
+                                        @if($columnIndex < count($table['columns']) - 2) <!-- Skip the last two columns -->
+                                            <td>
+                                                {{-- Safely output each field value --}}
+                                                {{ is_array($row->{$column->Field}) || is_object($row->{$column->Field}) ? json_encode($row->{$column->Field}) : strval($row->{$column->Field}) }}
+                                            </td>
+                                        @endif
                                     @endforeach
                                 </tr>
                             @endforeach
